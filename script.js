@@ -4,8 +4,8 @@ var generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector('#password');
+  let password = generatePassword();
+  let passwordText = document.querySelector('#password');
   
   passwordText.value = password;
 
@@ -123,13 +123,21 @@ function writePassword() {
   let passLength = 0;
   let passConcat = [];
   function getPasswordOptions() {
-    passLength = Number(prompt("Please enter password length, between 10 and 64 characters:"));
+    passLength = prompt("Please enter password length, between 10 and 64 characters:");
     parseInt(passLength);
   }
 
-  while (passLength < 10 || passLength > 64) {
-    getPasswordOptions("Length should be between 10 and 64 characters");
-  }
+  getPasswordOptions();
+
+  // if (passLength < 10 || passLength > 64) {
+  // alert("Length should be between 10 and 64 characters");
+  // return null;
+  // } else if (isNaN(passLength)) {
+  //   alert("Please choose a character length between 10 and 64");
+  //   return null;
+  // }
+  
+
   // Asking to confirm character options
 
   if (confirm("Should your password include lower case letters?") == true) {
@@ -148,30 +156,21 @@ function writePassword() {
     passConcat = passConcat.concat(specialCharacters);
   }
 
-  console.log(passConcat)
 
   // Function for getting a random element from an array
-  var createResult = function () {
+  let createResult = function () {
     let passResult = [];
-    for (var i = 0; i < passLength; i++) {
+    for (let i = 0; i < passLength; i++) {
       passResult.push(passConcat[Math.floor(Math.random() * passConcat.length)]);
     }
     passResult = passResult.join("");
     return passResult;
   }
 
-  createResult();
-
-  //final input validation and return of final password if accepted
-  // if (confirm("Selected Password Criteria:\n" + "Password Length:   " + passLength + "\n" + "Lower Case?:   " + lowerCasedCharacters + "\n" + "Upper Case?:   " + upperCasedCharacters + "\n" + "Numeric values?:   " + numericCharacters + "\n" + "Special characters?:   " + specialCharacters) == true) {
-  // return createResult() ;
-  // } else {
-  // return null;
-  // }    
+  return createResult();
 
 }
 }
-
 
 
 // Add event listener to generate button
