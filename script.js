@@ -9,7 +9,7 @@ function writePassword() {
   
   passwordText.value = password;
 
-
+_________________________________________________________
   //Present a series of prompts for password criteria:
 
   // Length of password:
@@ -24,6 +24,7 @@ function writePassword() {
   // Code should validate for each input and at least one character type should be selected.
 
   // Once all prompts are answered, the password should be generated and displayed in an alert or written to the page.
+___________________________________________________________
 
   // Function to generate password with user input
 
@@ -121,41 +122,55 @@ function writePassword() {
   // Function to prompt user for password length
 
   let passLength = 0;
-  let passConcat = [];
   function getPasswordOptions() {
-    passLength = prompt("Please enter password length, between 10 and 64 characters:");
-    parseInt(passLength);
+    do {
+      passLength = Number(prompt("Please enter password length, between 10 and 64 characters:"))
+    } while (passLength < 10 || passLength > 64 || isNaN(passLength));
   }
+    getPasswordOptions();
+    
+    
+    
+    // if (passLength < 10 || passLength > 64) {
+      // alert("Length should be between 10 and 64 characters");
+      // return null;
+      // } else if (isNaN(passLength)) {
+        //   alert("Please choose a character length between 10 and 64");
+        //   return null;
+        // }
+        
+        
+    // Asking to confirm character options
+    let passConcat = [];
+    function passOptions() {
+        if (confirm("Should your password include lower case letters?") == true) {
+          passConcat = passConcat.concat(lowerCasedCharacters);
+        }
+        
+        if (confirm("Should your password include upper case letters?") == true) {
+          passConcat = passConcat.concat(upperCasedCharacters);
+        }
+        
+        if (confirm("Should your password include numeric values?") == true) {
+          passConcat = passConcat.concat(numericCharacters);
+        }
+        
+        if (confirm("Should your password include special characters?") == true) {
+          passConcat = passConcat.concat(specialCharacters);
+        }
+        
+      } 
+      
+      passOptions();
+      
+    function minCriteria() {
+       if (passConcat.length == 0) {
+        alert("Please start again and select at least one option")
+       }
+      return null;
+    }
 
-  getPasswordOptions();
-
-  // if (passLength < 10 || passLength > 64) {
-  // alert("Length should be between 10 and 64 characters");
-  // return null;
-  // } else if (isNaN(passLength)) {
-  //   alert("Please choose a character length between 10 and 64");
-  //   return null;
-  // }
-  
-
-  // Asking to confirm character options
-
-  if (confirm("Should your password include lower case letters?") == true) {
-    passConcat = passConcat.concat(lowerCasedCharacters);
-  }
-
-  if (confirm("Should your password include upper case letters?") == true) {
-    passConcat = passConcat.concat(upperCasedCharacters);
-  }
-
-  if (confirm("Should your password include numeric values?") == true) {
-    passConcat = passConcat.concat(numericCharacters);
-  }
-
-  if (confirm("Should your password include special characters?") == true) {
-    passConcat = passConcat.concat(specialCharacters);
-  }
-
+      minCriteria();
 
   // Function for getting a random element from an array
   let createResult = function () {
